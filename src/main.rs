@@ -5,7 +5,7 @@ fn main() {
     //let a:f64 = input_helper("a: ").trim().parse().expect("Invalid input");
     //let b:f64 = input_helper("b: ").trim().parse().expect("Invalid input");
 
-    //calc_linear(a, b);
+    //linear_equation(a, b);
 
     println!("Equation Solver for f(x) = ax^2 + bx + c");
     let a:f64 = input_helper("a: ").trim().parse().expect("Invalid input");
@@ -27,6 +27,16 @@ fn linear_equation(a:f64, b:f64) {
     println!(" III. {} = x", cal_zero);
     */
 
+    if a == 0f64 {
+        if b == 0f64 {
+            println!("a and b are both equal to zero -> infinite solutions for x!");
+            return;
+        } else {
+            println!("a is equal to zero while b is not -> no intersection with the axis and no solution for x!");
+            return;
+        }
+    }
+
     println!("0 = {} * x + {}", a, b);
 
     let x:f64 = -1f64 * b / a;
@@ -34,12 +44,18 @@ fn linear_equation(a:f64, b:f64) {
 }
 
 fn quadratic_equation(a:f64, b:f64, c:f64) {
+    if a == 0f64 {
+        println!("\na is equal to zero -> linear equation instead of quadratic equation");
+        linear_equation(b, c);
+        return;
+    }
+
     println!("\n0 = {} * x^2 + {} * x + {}\n", a, b, c);
 
     let discriminant:f64 = b * b - (4f64 * a * c);
 
     if discriminant < 0f64 {
-        println!("Discriminant is negative -> no intersection with the axis and no real solution for x!"); // ex.: 1 1 1
+        println!("Discriminant is negative -> no intersection with the axis and no solution for x!"); // ex.: 1 1 1
         return;
     }
 
